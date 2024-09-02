@@ -1,0 +1,296 @@
+/* Productos */
+
+/* Estilos generales */
+.love-ya-like-a-sister-regular {
+    font-family: "Love Ya Like A Sister", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Aplicar la tipografía a todo el body */
+body {
+    background-image: url('../images/Untitled.png'); /* Ruta relativa a la ubicación del CSS */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Altura mínima del viewport */
+    text-align: center; /* Centra el texto */
+    font-family: "Love Ya Like A Sister", cursive; /* Aplicar la fuente a todo el cuerpo */
+}
+
+h2 {
+    font-size: 100px; /* Tamaño más pequeño si el título es demasiado grande */
+    margin: 0;
+    padding-top: 20px; /* Reduce el espacio desde la parte superior */
+    color: #333;
+}
+
+/* Contenedor principal que alinea el título y el botón */
+.header-container {
+    display: flex;
+    justify-content: center; /* Centra el contenido en el contenedor */
+    align-items: center;
+    width: 100%;
+    position: relative; /* Para posicionar el botón de manera absoluta */
+    margin-bottom: 20px; /* Espacio debajo del contenedor */
+}
+
+/* Contenedor para el título y el botón de cierre de sesión */
+.header-content {
+    display: flex;
+    justify-content: center; /* Centra el título */
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+/* Título */
+.header-title {
+    font-size: 100px; /* Tamaño del título */
+    margin: 0;
+    padding-top: 20px; /* Espacio desde la parte superior */
+    color: #333;
+}
+
+/* Botón de cerrar sesión */
+.logout-button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    position: absolute; /* Posiciona el botón de manera absoluta */
+    left: -90px; /* Alinea el botón al borde derecho del contenedor */
+    top: 20px; /* Ajusta la posición vertical según sea necesario */
+    font-family: "Love Ya Like A Sister", cursive; /* Aplicar la fuente a los botones y enlaces */
+
+}
+
+.logout-button:hover {
+    background-color: #303b46;
+}
+
+/* Productos y modal */
+
+.btn-riht {
+    float: right; /* Alinea el botón a la izquierda */
+    margin-top: -6px;
+  }
+
+  .btn-left {
+    font-family: "Love Ya Like A Sister", cursive;
+    float: left; /* Alinea el botón a la izquierda */
+    margin-top: -6px;
+    border-radius: 5px;
+    border-color: #c82333;
+    color: #ddd;
+    background-color: #c82333;
+    width: 110px; /* Ancho del botón */
+    height: 30px; /* Alto del botón */
+  }
+
+  .btn-left:hover {
+    background-color: #c25d67; /* Color de fondo al pasar el cursor */
+  }
+
+  .btn-primary{
+    font-family: "Love Ya Like A Sister", cursive;
+    float: left; /* Alinea el botón a la izquierda */
+    margin-top: -6px;
+    border-radius: 5px;
+    border-color: #000000;
+    color: #ddd;
+    background-color: #000000;
+    width: 110px; /* Ancho del botón */
+    height: 30px; /* Alto del botón */
+  }
+
+  .btn-primary:hover {
+    background-color: #413d3d; /* Color de fondo al pasar el cursor */
+  }
+
+.product-container {
+    display: grid;
+    max-width: 1200px; /* Ancho máximo del contenedor de productos */
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 30px; /* Espaciado entre productos */
+    margin-bottom: 20px; /* Espaciado inferior para la separación entre filas */
+}
+
+.product {
+    border-radius: 70px;
+    padding: 20px;
+    background-color: #8fe4fe;
+    display: flex;
+    margin-bottom: 20px; /* Espacio debajo de cada producto */
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-header h3 {
+    margin: 0;
+}
+
+.product-header .price {
+    margin: 0;
+}
+
+.product-body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+/* Información del producto */
+.product-info {
+    display: flex;
+    justify-content: space-between; /* Distribuir el espacio entre los elementos */
+    flex-direction: row; /* Alinear los elementos horizontalmente */
+    margin-top: 10px;
+}
+
+.product-info .description {
+    font-size: 0.8rem; /* Reducir el tamaño de la fuente para la descripción */
+    margin: 5px 0;
+    flex: 1; /* Permitir que la descripción ocupe el espacio disponible */
+}
+
+.product-info .quantity {
+    font-size: 0.8rem; /* Reducir el tamaño de la fuente para la cantidad */
+    margin: 5px 0;
+    text-align: right; /* Alinear la cantidad a la derecha */
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+    font-family: "Love Ya Like A Sister", cursive; /* Aplicar la fuente a los botones y enlaces */
+
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.modal-header, .modal-footer {
+    padding: 10px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-footer {
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+/* Botón de eliminar */
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 1px 5px; /* Ajustar el tamaño del padding si es necesario */
+    border-radius:20px;
+    cursor: pointer;
+    font-family: "Love Ya Like A Sister", cursive;
+}
+
+.btn-danger i {
+    font-size: 3rem; /* Aumentar el tamaño del ícono */
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Botón de cancelar */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Love Ya Like A Sister", cursive;
+    margin-left: 10px; /* Espacio entre los botones */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Botón de mostrar más productos */
+#showMoreBtn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    border: none;
+    background-color: #080808;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Love Ya Like A Sister", cursive; /* Aplicar la fuente al botón */
+    font-size: 1rem;
+}
+
+#showMoreBtn:hover {
+    background-color: #28313a;
+}
+
+.hidden-products {
+    display: none;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 60px; /* Reduce el tamaño del título */
+    }
+
+    .product-container {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+
+    .product {
+        padding: 10px; /* Reduce el padding */
+    }
+
+    .logout-button {
+        font-size: 0.8rem; /* Reduce el tamaño de la fuente */
+        padding: 8px 12px; /* Reduce el padding */
+    }
+
+    .btn-danger, .btn-secondary, #showMoreBtn {
+        padding: 8px 15px; /* Ajusta el padding de los botones */
+        font-size: 0.8rem; /* Reduce el tamaño de la fuente */
+    }
+}
