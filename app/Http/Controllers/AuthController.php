@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Http\RedirectResponse;
 use App\Models\EmployeeCode;
 
 class AuthController extends Controller
@@ -18,48 +17,71 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    // Registrar un nuevo usuario
-public function register(Request $request)
-{
-    // Validar los datos del formulario
-    $request->validate([
-        'email' => 'required|email|unique:users',
-        'code' => 'required|exists:employee_codes,code|unique:users,employee_code_id',
-        'password' => 'required|min:6|confirmed',
-    ], [
-        'email.unique' => 'El correo electrónico ya existe en el sistema.',
-        'code.exists' => 'El código de empleado no es válido.',
-        'code.unique' => 'El código de empleado ya ha sido usado.',
-    ]);
+    // Registrar usuario
+    public function register(Request $request)
+    {
+        // Validación
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'code' => 'required|exists:employee_codes,code',
+            'password' => 'required|min:6|confirmed',
+        ], [
+            'email.unique' => 'El correo ya está registrado.',
+            'code.exists' => 'El código no es válido.',
+        ]);
 
-    // Obtener el ID del código de empleado
-    $employeeCode = EmployeeCode::where('code', $request->code)->first();
+        // Buscar código
+        $employeeCode = EmployeeCode::where('code', $request->code)->firstOrFail();
 
-    // Crear un nuevo usuario
-    $user = new User;
-    $user->email = $request->email;
-    $user->employee_code_id = $employeeCode->id; // Asignar la relación correctamente
-    $user->password = Hash::make($request->password);
-    $user->save();
+        // Validar si ya fue usado
+        if ($employeeCode->is_used) {
+            return back()->withErrors([
+                'code' => 'Este código ya ha sido utilizado.'
+            ])->withInput();
+        }
 
-    // Actualizar el estado del código de empleado
-    $employeeCode->is_used = true;
-    $employeeCode->save();
+        // Crear usuario
+        $user = new User();
+        $user->email = $request->email;
+        $user->employee_code_id = $employeeCode->id;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
-    // Enviar mensaje de éxito a la sesión
-    Session::flash('success', 'Registrado con éxito. Inicie sesión.');
+        // Marcar código como usado
+        $employeeCode->is_used = true;
+        $employeeCode->save();
 
-    // Redirigir al formulario de login
-    return redirect()->route('login');
-}
+        // Mensaje de éxito
+        Session::flash('success', 'Registrado con éxito. Inicia sesión.');
 
-    // Mostrar formulario de login
+        return redirect()->route('login');
+    }
+
+    // Mostrar login
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-     // Cerrar sesión
+    // Login (por si no lo tenías)
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard'); // cambia si quieres
+        }
+
+        return back()->withErrors([
+            'email' => 'Credenciales incorrectas',
+        ])->onlyInput('email');
+    }
+
+    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
@@ -67,7 +89,4 @@ public function register(Request $request)
         $request->session()->regenerateToken();
         return redirect()->route('login');
     }
-  }
-
-
-
+}

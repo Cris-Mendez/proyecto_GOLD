@@ -21,6 +21,11 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
+        // Si la petición es AJAX (fetch), respondemos JSON
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json(['success' => true]);
+        }
+
         return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
     }
 }

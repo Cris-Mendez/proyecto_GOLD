@@ -19,3 +19,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
+Route::get('/', function () {
+    return redirect()->route('login');
+});
